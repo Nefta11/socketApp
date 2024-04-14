@@ -21,7 +21,7 @@ export default function App() {
       <Text style={styles.value}>{potentiometerValue}</Text>
 
       <WebSocket
-        url="ws://tu-direccion-ip-del-ESP8266:81"
+        url="192.168.1.77"
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
