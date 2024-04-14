@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { WebSocket } from 'your-websocket-library'; // Importa el módulo de WebSocket que estés usando
+import WebSocket from 'react-native-websocket';
 
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
 
   useEffect(() => {
-    const ws = new WebSocket('ws://tu-direccion-ip-del-ESP8266:81');
-
-    ws.onopen = () => {
-      console.log('WebSocket conectado');
-    };
-
-    ws.onmessage = (event) => {
-      setPotentiometerValue(event.data);
-    };
-
-    ws.onerror = (error) => {
-      console.log('Error de WebSocket:', error);
-    };
-
     return () => {
       ws.close();
     };
   }, []);
 
+  const handleData = (data) => {
+    setPotentiometerValue(data);
+  };
+
   return (
     <View style={styles.container}>
       <Text>Valor del potenciómetro:</Text>
       <Text style={styles.value}>{potentiometerValue}</Text>
+
+      <WebSocket
+        url="ws://tu-direccion-ip-del-ESP8266:81"
+        onMessage={handleData}
+        onError={(error) => console.log('Error de WebSocket:', error)}
+        reconnect={true}
+      />
     </View>
   );
 }
