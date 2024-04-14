@@ -1,11 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { WebSocket } from 'your-websocket-library'; // Importa el módulo de WebSocket que estés usando
 
 export default function App() {
+  const [potentiometerValue, setPotentiometerValue] = useState('0');
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://tu-direccion-ip-del-ESP8266:81');
+
+    ws.onopen = () => {
+      console.log('WebSocket conectado');
+    };
+
+    ws.onmessage = (event) => {
+      setPotentiometerValue(event.data);
+    };
+
+    ws.onerror = (error) => {
+      console.log('Error de WebSocket:', error);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text>Valor del potenciómetro:</Text>
+      <Text style={styles.value}>{potentiometerValue}</Text>
     </View>
   );
 }
@@ -13,8 +36,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  value: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
   },
 });
