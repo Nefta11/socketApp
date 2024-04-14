@@ -12,9 +12,9 @@ export default function App() {
     setPotentiometerValue(message.data);
   };
 
+
   const onOpen = (event) => {
     console.log("Conexión WebSocket abierta");
-    setWs(event.target);
   };
 
   return (
@@ -24,7 +24,7 @@ export default function App() {
 
       <WebSocket
         url="ws://192.168.1.77:81"
-        onOpen={onOpen} 
+        onOpen={onOpen} // Utilizamos la función onOpen para establecer ws
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
