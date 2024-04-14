@@ -6,13 +6,13 @@ export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
 
   useEffect(() => {
-    return () => {
-      ws.close();
-    };
+    // No es necesario cerrar manualmente el WebSocket aquí
+    // El componente WebSocket manejará su propio cierre cuando sea necesario
+    // No necesitas devolver ninguna función de limpieza ya que no hay suscripciones o temporizadores en este caso
   }, []);
 
-  const handleData = (data) => {
-    setPotentiometerValue(data);
+  const handleData = (message) => {
+    setPotentiometerValue(message.data);
   };
 
   return (
@@ -21,7 +21,7 @@ export default function App() {
       <Text style={styles.value}>{potentiometerValue}</Text>
 
       <WebSocket
-        url="192.168.1.77"
+        url="ws://192.168.1.77:81"
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
