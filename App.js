@@ -8,9 +8,6 @@ export default function App() {
   const [ws, setWs] = useState(null); // Inicializamos ws como null
 
   useEffect(() => {
-    // No es necesario cerrar manualmente el WebSocket aquí
-    // El componente WebSocket manejará su propio cierre cuando sea necesario
-    // No necesitas devolver ninguna función de limpieza ya que no hay suscripciones o temporizadores en este caso
   }, []);
 
   const handleData = (message) => {
