@@ -4,8 +4,6 @@ import WebSocket from 'react-native-websocket';
 
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
-  const [ledState, setLedState] = useState(false);
-  const [ws, setWs] = useState(null); // Inicializamos ws como null
 
   useEffect(() => {
   }, []);
@@ -14,17 +12,6 @@ export default function App() {
     setPotentiometerValue(message.data);
   };
 
-  const toggleLed = (value) => {
-    setLedState(value);
-    const message = value ? "on" : "off";
-    
-    // Verificamos si ws está inicializado
-    if (ws && ws.send) {
-      ws.send(message);
-    } else {
-      console.log("WebSocket no está inicializado");
-    }
-  };
 
   const onOpen = (event) => {
     console.log("Conexión WebSocket abierta");
@@ -36,11 +23,6 @@ export default function App() {
     <View style={styles.container}>
       <Text>Valor del potenciómetro:</Text>
       <Text style={styles.value}>{potentiometerValue}</Text>
-
-      <Switch
-        value={ledState}
-        onValueChange={toggleLed}
-      />
 
       <WebSocket
         url="ws://192.168.1.77:81"
