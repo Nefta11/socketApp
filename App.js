@@ -20,16 +20,16 @@ const App = () => {
             header: () => (
               <View
                 style={{
-                  backgroundColor: "#F2B950",
+                  backgroundColor: "#53A7F4",
                   alignItems: "center",
                   paddingTop: 45,
                   paddingBottom: 10,
                 }}
               >
                 <Text
-                  style={{ fontWeight: "bold", color: "black", fontSize: 28 }}
+                  style={{ fontWeight: "bold", color: "white", fontSize: 28 }}
                 >
-                  API SOCKETS®
+                  API Sockets IoT
                 </Text>
                 <View
                   style={{
@@ -47,9 +47,9 @@ const App = () => {
           name="ProductFormScreen"
           component={ProductFormScreen}
           options={{
-            title: "Agregar un nuevo jersey",
+            title: "En espera",
             headerStyle: {
-              backgroundColor: "#F2B950",
+              backgroundColor: "#53A7F4",
             },
             headerTitleStyle: { fontWeight: "bold", color: "#000" },
             headerTintColor: "#000",
@@ -60,12 +60,12 @@ const App = () => {
           name="EditProductFormScreen"
           component={EditProductFormScreen}
           options={{
-            title: "Editar producto",
+            title: "En espera",
             headerStyle: {
-              backgroundColor: "#F2B950",
+              backgroundColor: "#53A7F4",
             },
             headerTitleStyle: { fontWeight: "bold", color: "#000" },
-            headerTintColor: "#F2B950",
+            headerTintColor: "red",
             headerTitleAlign: "center",
           }}
         />
