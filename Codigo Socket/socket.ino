@@ -25,7 +25,8 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
-  WiFiMulti.addAP("INFINITUM8EB8", "Yw5Jg6Sq8e");
+ // WiFiMulti.addAP("INFINITUM8EB8", "Yw5Jg6Sq8e");
+   WiFiMulti.addAP("NEFTALI07 9045", "Vf378$38");
 
   while (WiFiMulti.run() != WL_CONNECTED) {
     delay(100);
