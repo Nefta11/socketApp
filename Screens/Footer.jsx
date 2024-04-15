@@ -37,7 +37,7 @@ const Footer = () => {
         </TouchableOpacity>
       </View>
       <Text style={{ marginTop: 5, fontSize: 12 }}>
-        &copy; 2024 NeftSports.
+        &copy; 2024 Neftali A Hdz V.
       </Text>
     </View>
   );
