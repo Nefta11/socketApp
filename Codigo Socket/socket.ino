@@ -1,4 +1,5 @@
-/*#include <ESP8266WiFi.h>
+/*
+#include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <WebSocketsServer.h>
 #include <DHT.h>
@@ -39,7 +40,7 @@ void setup() {
 
 void loop() {
   webSocket.loop();
-  delay(50);
+  delay(10);
 
   // Leer temperatura
   t = dht.readTemperature();
@@ -53,7 +54,7 @@ void loop() {
 
   // Leer valor del potenciómetro
   int potentiometerValue = analogRead(potentiometerPin);
-  int normalizedValue = map(potentiometerValue, 0, 1023, 1, 200);
+  int normalizedValue = map(potentiometerValue, 0, 1023, 1, 100);
   String message = String(normalizedValue) + "," + String(t);
   
   webSocket.broadcastTXT(message);
