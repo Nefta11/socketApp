@@ -22,10 +22,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Valor del potenciómetro:</Text>
-      <Text style={styles.value}>{potentiometerValue}</Text>
+      <Text style={styles.value}>{potentiometerValue} Ω</Text>
 
       <Text>Temperatura actual:</Text>
-      <Text style={styles.value}>{temperatureValue}</Text>
+      <Text style={styles.value}>{temperatureValue} °C</Text>
 
       <WebSocket
         url="ws://192.168.1.77:81"
