@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import WebSocket from 'react-native-websocket';
 
 export default function App() {
@@ -23,6 +23,16 @@ export default function App() {
     console.log("Conexión WebSocket abierta");
   };
 
+  const guardarDatos = () => {
+    // Aquí puedes implementar la lógica para guardar los datos
+    console.log('Datos guardados');
+  };
+
+  const verJSON = () => {
+    // Aquí puedes implementar la lógica para ver el JSON
+    console.log('Ver JSON');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -37,11 +47,20 @@ export default function App() {
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Objeto detectado</Text>
-        <Text style={styles.objectDetected}>{objectDetected ? 'Sí' : 'No'}</Text>
+        <Text style={objectDetected ? styles.objectDetected : styles.value}>{objectDetected ? 'Sí' : 'No'}</Text>
         <Text style={styles.cardTitle}>Distancia al objeto</Text>
         <Text style={styles.value}>{distance} cm</Text>
       </View>
 
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={guardarDatos}>
+          <Text style={styles.buttonText}>Guardar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={verJSON}>
+          <Text style={styles.buttonText}>Ver JSON</Text>
+        </TouchableOpacity>
+      </View>
 
       <WebSocket
         url="ws://192.168.1.77:81"
@@ -90,5 +109,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#d32f2f', // color rojo si se detecta un objeto
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '70%',
+    marginTop: 25,
+  },
+  button: {
+    backgroundColor: '#d32f2f',
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 });
