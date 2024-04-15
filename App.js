@@ -5,6 +5,8 @@ import WebSocket from 'react-native-websocket';
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
   const [temperatureValue, setTemperatureValue] = useState('0');
+  const [objectDetected, setObjectDetected] = useState(false);
+  const [distance, setDistance] = useState(0);
 
   useEffect(() => {
   }, []);
@@ -13,6 +15,8 @@ export default function App() {
     const data = message.data.split(',');
     setPotentiometerValue(data[0]);
     setTemperatureValue(data[1]);
+    setDistance(data[2]);
+    setObjectDetected(data[2] < 20); // Suponiendo que la detección se realiza a menos de 20 cm
   };
 
   const onOpen = (event) => {
@@ -26,6 +30,10 @@ export default function App() {
 
       <Text>Temperatura actual:</Text>
       <Text style={styles.value}>{temperatureValue} °C</Text>
+
+      <Text>Objeto detectado: {objectDetected ? 'Sí' : 'No'}</Text>
+      <Text>Distancia al objeto:</Text>
+      <Text style={styles.value}>{distance} cm</Text>
 
       <WebSocket
         url="ws://192.168.1.77:81"
