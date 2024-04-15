@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import WebSocket from 'react-native-websocket';
+import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
   const [temperatureValue, setTemperatureValue] = useState('0');
   const [objectDetected, setObjectDetected] = useState(false);
   const [distance, setDistance] = useState(0);
+  const navigation = useNavigation(); // Obtiene el objeto de navegación
 
   useEffect(() => {
   }, []);
@@ -29,9 +31,9 @@ export default function App() {
   };
 
   const verJSON = () => {
-    // Aquí puedes implementar la lógica para ver el JSON
-    console.log('Ver JSON');
+    navigation.navigate('JsonFormScreen'); // Navega a la vista JsonFormScreen
   };
+  
 
   return (
     <View style={styles.container}>

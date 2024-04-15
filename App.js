@@ -3,8 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, TouchableOpacity } from "react-native";
 import HomeScreen from "./Screens/HomeScreen.jsx";
-import ProductFormScreen from "./Screens/ProductFormScreen.jsx";
-import EditProductFormScreen from "./Screens/EditProductFormScreen.jsx";
+import JsonFormScreen from "./Screens/JsonFormScreen.jsx";
 import Footer from "./Screens/Footer.jsx";
 
 const Stack = createNativeStackNavigator();
@@ -44,23 +43,10 @@ const App = () => {
           })}
         />
         <Stack.Screen
-          name="ProductFormScreen"
-          component={ProductFormScreen}
+          name="JsonFormScreen"
+          component={JsonFormScreen}
           options={{
-            title: "En espera",
-            headerStyle: {
-              backgroundColor: "#53A7F4",
-            },
-            headerTitleStyle: { fontWeight: "bold", color: "#000" },
-            headerTintColor: "#000",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="EditProductFormScreen"
-          component={EditProductFormScreen}
-          options={{
-            title: "En espera",
+            title: "JSON Guardados en la API",
             headerStyle: {
               backgroundColor: "#53A7F4",
             },

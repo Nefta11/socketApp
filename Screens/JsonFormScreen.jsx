@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const ProductFormScreen = () => {
+const JsonFormScreen = () => {
   return (
     <View>
-      <Text>ProductFormScreen</Text>
+      <Text>JsonFormScreen</Text>
     </View>
   )
 }
 
-export default ProductFormScreen
+export default JsonFormScreen
