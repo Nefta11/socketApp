@@ -60,7 +60,7 @@ export default function App() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={verJSON}>
-          <Text style={styles.buttonText}>Ver JSON</Text>
+          <Text style={styles.buttonText}>Ver Lista</Text>
         </TouchableOpacity>
       </View>
 
