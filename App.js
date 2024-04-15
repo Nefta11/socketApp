@@ -75,11 +75,4 @@ const App = () => {
   );
 };
 
-/*                  <TouchableOpacity onPress={() => navigation.navigate('PrincipalScreen')} style={{ paddingHorizontal: 60 }}>
-                    <Text style={{ fontSize: 18, color: 'black' }}>Inicio</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => navigation.navigate('ProductFormScreen')} style={{ paddingHorizontal: 60 }}>
-                    <Text style={{ fontSize: 18, color: 'black' }}>Nuevo</Text>
-                  </TouchableOpacity> */
-
 export default App;
