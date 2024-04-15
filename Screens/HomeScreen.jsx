@@ -38,12 +38,10 @@ export default function App() {
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Objeto detectado</Text>
         <Text style={styles.objectDetected}>{objectDetected ? 'Sí' : 'No'}</Text>
-      </View>
-
-      <View style={styles.card}>
         <Text style={styles.cardTitle}>Distancia al objeto</Text>
         <Text style={styles.value}>{distance} cm</Text>
       </View>
+
 
       <WebSocket
         url="ws://192.168.1.77:81"
