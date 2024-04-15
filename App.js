@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import WebSocket from 'react-native-websocket';
+import Footer from './Screens/Footer'; // Importa el componente Footer desde su ubicación
 
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
@@ -25,15 +26,25 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Valor del potenciómetro:</Text>
-      <Text style={styles.value}>{potentiometerValue} Ω</Text>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Valor del potenciómetro</Text>
+        <Text style={styles.value}>{potentiometerValue} Ω</Text>
+      </View>
 
-      <Text>Temperatura actual:</Text>
-      <Text style={styles.value}>{temperatureValue} °C</Text>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Temperatura actual</Text>
+        <Text style={styles.value}>{temperatureValue} °C</Text>
+      </View>
 
-      <Text>Objeto detectado: {objectDetected ? 'Sí' : 'No'}</Text>
-      <Text>Distancia al objeto:</Text>
-      <Text style={styles.value}>{distance} cm</Text>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Objeto detectado</Text>
+        <Text style={styles.objectDetected}>{objectDetected ? 'Sí' : 'No'}</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Distancia al objeto</Text>
+        <Text style={styles.value}>{distance} cm</Text>
+      </View>
 
       <WebSocket
         url="ws://192.168.1.77:81"
@@ -53,9 +64,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  card: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
   value: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 20,
+  },
+  objectDetected: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#d32f2f', // color rojo si se detecta un objeto
   },
 });
