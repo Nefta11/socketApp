@@ -1,4 +1,4 @@
-#include <ESP8266WiFi.h>
+/*#include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <WebSocketsServer.h>
 #include <DHT.h>
@@ -58,3 +58,4 @@ void loop() {
   
   webSocket.broadcastTXT(message);
 }
+*/
