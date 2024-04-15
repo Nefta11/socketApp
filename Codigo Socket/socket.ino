@@ -40,7 +40,7 @@ void setup() {
 
 void loop() {
   webSocket.loop();
-  delay(10);
+  delay(40);
 
   // Leer temperatura
   t = dht.readTemperature();
