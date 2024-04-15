@@ -45,7 +45,7 @@ export default function App() {
         <Text style={styles.value}>{temperatureValue} °C</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={[styles.card, objectDetected ? styles.objectDetectedCard : styles.noObjectDetectedCard]}>
         <Text style={styles.cardTitle}>Objeto detectado</Text>
         <Text style={objectDetected ? styles.objectDetected : styles.value}>{objectDetected ? 'Sí' : 'No'}</Text>
         <Text style={styles.cardTitle}>Distancia al objeto</Text>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#f0f0f0',
-    borderRadius: 10,
+    borderRadius: 20,
     padding: 20,
     marginBottom: 20,
     width: '80%',
@@ -108,7 +108,13 @@ const styles = StyleSheet.create({
   objectDetected: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#d32f2f', // color rojo si se detecta un objeto
+    color: '#d32f2f', 
+  },
+  objectDetectedCard: {
+    backgroundColor: '#ffebee', // Rojo claro
+  },
+  noObjectDetectedCard: {
+    backgroundColor: '#c8e6c9', // Verde claro
   },
   buttonContainer: {
     flexDirection: 'row',
