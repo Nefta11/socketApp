@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Switch } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import WebSocket from 'react-native-websocket';
 
 export default function App() {
   const [potentiometerValue, setPotentiometerValue] = useState('0');
+  const [temperatureValue, setTemperatureValue] = useState('0');
 
   useEffect(() => {
   }, []);
 
   const handleData = (message) => {
-    setPotentiometerValue(message.data);
+    const data = message.data.split(',');
+    setPotentiometerValue(data[0]);
+    setTemperatureValue(data[1]);
   };
-
 
   const onOpen = (event) => {
     console.log("Conexión WebSocket abierta");
@@ -22,9 +24,12 @@ export default function App() {
       <Text>Valor del potenciómetro:</Text>
       <Text style={styles.value}>{potentiometerValue}</Text>
 
+      <Text>Temperatura actual:</Text>
+      <Text style={styles.value}>{temperatureValue}</Text>
+
       <WebSocket
         url="ws://192.168.1.77:81"
-        onOpen={onOpen} // Utilizamos la función onOpen para establecer ws
+        onOpen={onOpen}
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
