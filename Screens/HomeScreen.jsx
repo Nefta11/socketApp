@@ -215,10 +215,10 @@ const getBackgroundColor = (temp) => {
   } else if (tempValue >= 27 && tempValue < 27.5) {
     return '#FF0000'; // Rojo
   } else if (tempValue >= 27.5 && tempValue < 28) {
-    return '#FF0000'; // Rojo
+    return '#FF1000'; // Rojo
   } else if (tempValue >= 28 && tempValue < 30) {
-    return '#FF0000'; // Rojo
+    return '#FF1100'; // Rojo
   } else {
-    return 'orange'; // Caliente (a partir de 30)
+    return '#FF1111'; // Caliente (a partir de 30)
   }
 };
