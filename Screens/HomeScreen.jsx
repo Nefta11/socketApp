@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'; // Importa Alert desde 'react-native'
 import WebSocket from 'react-native-websocket';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Importa AsyncStorage desde la nueva ubicación
 import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
+import { insertList } from '../api'; // Importa la función insertList desde el archivo api.js
 
 export default function App() {
-  const [potentiometerValue, setPotentiometerValue] = useState('0');
-  const [temperatureValue, setTemperatureValue] = useState('0');
-  const [objectDetected, setObjectDetected] = useState(false);
-  const [distance, setDistance] = useState(0);
+  const [valorPotenciometro, setValorPotenciometro] = useState('0');
+  const [TemperaturaActual, setTemperaturaActual] = useState('0');
+  const [objetoDetectado, setObjetoDetectado] = useState(false);
+  const [DistanciaObjeto, setDistanciaObjeto] = useState(0);
   const navigation = useNavigation(); // Obtiene el objeto de navegación
 
   useEffect(() => {
@@ -15,43 +17,70 @@ export default function App() {
 
   const handleData = (message) => {
     const data = message.data.split(',');
-    setPotentiometerValue(data[0]);
-    setTemperatureValue(data[1]);
-    setDistance(data[2]);
-    setObjectDetected(data[2] < 20); // Suponiendo que la detección se realiza a menos de 20 cm
+    setValorPotenciometro(data[0]);
+    setTemperaturaActual(data[1]);
+    setDistanciaObjeto(data[2]);
+    setObjetoDetectado(data[2] < 20); // Suponiendo que la detección se realiza a menos de 20 cm
   };
 
   const onOpen = (event) => {
     console.log("Conexión WebSocket abierta");
   };
 
-  const guardarDatos = () => {
-    // Aquí puedes implementar la lógica para guardar los datos
-    console.log('Datos guardados');
+  const generarCodigoAleatorio = () => {
+    return Math.floor(1000 + Math.random() * 9000); // Genera un número aleatorio de 4 dígitos
+  };
+
+  const guardarDatos = async () => {
+    try {
+      const codigo = generarCodigoAleatorio(); // Genera el código aleatorio
+      const datosAGuardar = {
+        code: codigo, // Inserta el código aleatorio
+        valorPotenciometro,
+        TemperaturaActual,
+        objetoDetectado: objetoDetectado ? 'Sí' : 'No', // Representa "Sí" o "No" en lugar de true o false
+        DistanciaObjeto
+      };
+
+      // Guardar los datos localmente
+      await AsyncStorage.setItem('datosGuardados', JSON.stringify(datosAGuardar));
+
+      // Enviar los datos a la base de datos a través de la API
+      await insertList(datosAGuardar);
+      
+      console.log('Datos guardados y enviados a la base de datos:', datosAGuardar);
+
+      // Mostrar alerta de guardado exitoso
+      Alert.alert('Guardado exitoso', 'Los datos se han guardado correctamente.');
+
+    } catch (error) {
+      console.error('Error al guardar los datos:', error);
+      // Mostrar alerta de error si ocurre algún problema
+      Alert.alert('Error', 'Ha ocurrido un error al intentar guardar los datos.');
+    }
   };
 
   const verJSON = () => {
     navigation.navigate('JsonFormScreen'); // Navega a la vista JsonFormScreen
   };
-  
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Valor del potenciómetro</Text>
-        <Text style={styles.value}>{potentiometerValue} Ω</Text>
+        <Text style={styles.value}>{valorPotenciometro} Ω</Text>
       </View>
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Temperatura actual</Text>
-        <Text style={styles.value}>{temperatureValue} °C</Text>
+        <Text style={styles.value}>{TemperaturaActual} °C</Text>
       </View>
 
-      <View style={[styles.card, objectDetected ? styles.objectDetectedCard : styles.noObjectDetectedCard]}>
+      <View style={[styles.card, objetoDetectado ? styles.objetoDetectadoCard : styles.noObjetoDetectadoCard]}>
         <Text style={styles.cardTitle}>Objeto detectado</Text>
-        <Text style={objectDetected ? styles.objectDetected : styles.value}>{objectDetected ? 'Sí' : 'No'}</Text>
+        <Text style={objetoDetectado ? styles.objetoDetectado : styles.value}>{objetoDetectado ? 'Sí' : 'No'}</Text>
         <Text style={styles.cardTitle}>Distancia al objeto</Text>
-        <Text style={styles.value}>{distance} cm</Text>
+        <Text style={styles.value}>{DistanciaObjeto} cm</Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -65,8 +94,7 @@ export default function App() {
       </View>
 
       <WebSocket
-       // url="ws://192.168.1.77:81"
-        url="ws://192.168.144.128:81"
+        url="ws://192.168.1.77:81"
         onOpen={onOpen}
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
@@ -108,15 +136,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  objectDetected: {
+  objetoDetectado: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#d32f2f', 
   },
-  objectDetectedCard: {
+  objetoDetectadoCard: {
     backgroundColor: '#ffebee', // Rojo claro
   },
-  noObjectDetectedCard: {
+  noObjetoDetectadoCard: {
     backgroundColor: '#c8e6c9', // Verde claro
   },
   buttonContainer: {
