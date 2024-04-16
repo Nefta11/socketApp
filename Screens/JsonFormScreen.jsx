@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native'; // Importa Alert desde 'react-native'
 import { getLists, deleteList } from '../api'; // Importa las funciones de la API
 
 const JsonFormScreen = ({ navigation }) => {
@@ -23,9 +23,26 @@ const JsonFormScreen = ({ navigation }) => {
   // Función para eliminar un elemento de la lista
   const handleDeleteListItem = async (code) => {
     try {
-      await deleteList(code);
-      // Después de eliminar, obtener las listas actualizadas
-      fetchLists();
+      // Mostrar alerta de confirmación antes de eliminar
+      Alert.alert(
+        'Confirmar eliminación',
+        '¿Está seguro de que desea eliminar este elemento?',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: async () => {
+              await deleteList(code);
+              // Después de eliminar, obtener las listas actualizadas
+              fetchLists();
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
       console.error('Error al eliminar el elemento de la lista:', error);
     }
