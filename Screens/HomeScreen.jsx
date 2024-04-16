@@ -68,7 +68,11 @@ export default function App() {
   const potenciometroStyle = {
     backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`, // Color rojo con opacidad cambiante según el valor del potenciómetro
   };
-
+ 
+  const temperaturaStyle = {
+    backgroundColor: getBackgroundColor(TemperaturaActual)
+  };
+  
   return (
     <View style={styles.container}>
       <View style={[styles.card, potenciometroStyle]}>
@@ -76,7 +80,7 @@ export default function App() {
         <Text style={styles.value}>{valorPotenciometro} Ω</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={[styles.card, temperaturaStyle]}>
         <Text style={styles.cardTitle}>Temperatura actual</Text>
         <Text style={styles.value}>{TemperaturaActual} °C</Text>
       </View>
@@ -170,3 +174,51 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
+const getBackgroundColor = (temp) => {
+  const tempValue = parseFloat(temp);
+  if (tempValue < 0) {
+    return 'white'; // Muy frío
+  } else if (tempValue >= 0 && tempValue < 10) {
+    return 'lightblue'; // Frío
+  } else if (tempValue >= 10 && tempValue < 15) {
+    return '#87CEFA'; // Azul Claro
+  } else if (tempValue >= 15 && tempValue < 20) {
+    return '#6495ED'; // Azul
+  } else if (tempValue >= 20 && tempValue < 20.5) {
+    return '#FFFF00'; // Amarillo Claro
+  } else if (tempValue >= 20.5 && tempValue < 21) {
+    return '#FFFF33'; // Amarillo
+  } else if (tempValue >= 21 && tempValue < 21.5) {
+    return '#FFFF66'; // Amarillo
+  } else if (tempValue >= 21.5 && tempValue < 22) {
+    return '#FFFF99'; // Amarillo
+  } else if (tempValue >= 22 && tempValue < 22.5) {
+    return '#FFFFCC'; // Amarillo
+  } else if (tempValue >= 22.5 && tempValue < 23) {
+    return '#FFEB3B'; // Amarillo
+  } else if (tempValue >= 23 && tempValue < 23.5) {
+    return '#FFE066'; // Amarillo
+  } else if (tempValue >= 23.5 && tempValue < 24) {
+    return '#FFD700'; // Naranja Claro
+  } else if (tempValue >= 24 && tempValue < 24.5) {
+    return '#FFA500'; // Naranja
+  } else if (tempValue >= 24.5 && tempValue < 25) {
+    return '#FF8C00'; // Naranja
+  } else if (tempValue >= 25 && tempValue < 25.5) {
+    return '#FF6347'; // Naranja
+  } else if (tempValue >= 25.5 && tempValue < 26) {
+    return '#FF4500'; // Naranja
+  } else if (tempValue >= 26 && tempValue < 26.5) {
+    return '#FF3333'; // Naranja
+  } else if (tempValue >= 26.5 && tempValue < 27) {
+    return '#FF0000'; // Rojo
+  } else if (tempValue >= 27 && tempValue < 27.5) {
+    return '#FF0000'; // Rojo
+  } else if (tempValue >= 27.5 && tempValue < 28) {
+    return '#FF0000'; // Rojo
+  } else if (tempValue >= 28 && tempValue < 30) {
+    return '#FF0000'; // Rojo
+  } else {
+    return 'orange'; // Caliente (a partir de 30)
+  }
+};
