@@ -1,12 +1,97 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { getLists, deleteList } from '../api'; // Importa las funciones de la API
 
-const JsonFormScreen = () => {
+const JsonFormScreen = ({ navigation }) => {
+  const [lists, setLists] = useState([]);
+
+  // Obtiene las listas de la API cuando el componente se monta
+  useEffect(() => {
+    fetchLists();
+  }, []);
+
+  // Función para obtener las listas desde la API
+  const fetchLists = async () => {
+    try {
+      const response = await getLists();
+      setLists(response); // Actualiza el estado con las listas obtenidas
+    } catch (error) {
+      console.error('Error al obtener las listas:', error);
+    }
+  };
+
+  // Función para eliminar un elemento de la lista
+  const handleDeleteListItem = async (code) => {
+    try {
+      await deleteList(code);
+      // Después de eliminar, obtener las listas actualizadas
+      fetchLists();
+    } catch (error) {
+      console.error('Error al eliminar el elemento de la lista:', error);
+    }
+  };
+
   return (
-    <View>
-      <Text>JsonFormScreen</Text>
-    </View>
-  )
-}
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      {lists.map((item) => (
+        <View key={item.code} style={styles.card}>
+          <View style={styles.cardBody}>
+            <Text style={styles.description}>Código:  {item.code}</Text>
+            <Text style={styles.textItem}>Valor del potenciómetro:  {item.valorPotenciometro}</Text>
+            <Text style={styles.textItem}>Temperatura actual: {item.TemperaturaActual}</Text>
+            <Text style={styles.textItem}>Objeto detectado: {item.objetoDetectado}</Text>
+            <Text style={styles.textItem}>Distancia al objeto:  {item.DistanciaObjeto}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.buttonDelete}
+            onPress={() => handleDeleteListItem(item.code)}>
+            <Text style={styles.buttonText}>Eliminar</Text>
+          </TouchableOpacity>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
 
-export default JsonFormScreen
+const styles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  card: {
+    width: '70%',
+    backgroundColor: '#1877F2',
+    borderRadius: 15,
+    marginBottom: 22,
+    padding: 10,
+    alignItems: 'center',
+  },
+  cardBody: {
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  textItem: {
+    fontSize: 20,
+    marginBottom: 8,
+  },
+  buttonDelete: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 15,
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 10,
+    width: '40%',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});
+
+export default JsonFormScreen;
