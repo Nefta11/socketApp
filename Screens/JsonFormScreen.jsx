@@ -36,11 +36,10 @@ const JsonFormScreen = ({ navigation }) => {
       {lists.map((item) => (
         <View key={item.code} style={styles.card}>
           <View style={styles.cardBody}>
-            <Text style={styles.description}>Código:  {item.code}</Text>
-            <Text style={styles.textItem}>Valor del potenciómetro:  {item.valorPotenciometro}</Text>
-            <Text style={styles.textItem}>Temperatura actual: {item.TemperaturaActual}</Text>
+            <Text style={styles.textItem}>Valor del potenciómetro:  {item.valorPotenciometro} Ω</Text>
+            <Text style={styles.textItem}>Temperatura actual: {item.TemperaturaActual} °C</Text>
             <Text style={styles.textItem}>Objeto detectado: {item.objetoDetectado}</Text>
-            <Text style={styles.textItem}>Distancia al objeto:  {item.DistanciaObjeto}</Text>
+            <Text style={styles.textItem}>Distancia al objeto:  {item.DistanciaObjeto} cm</Text>
           </View>
           <TouchableOpacity
             style={styles.buttonDelete}
@@ -78,26 +77,19 @@ const styles = StyleSheet.create({
   cardBody: {
     marginBottom: 10,
   },
-  description: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333',
-    textAlign: 'center',
-  },
   textItem: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: 18,
+    marginBottom: 7,
     color: '#555',
     textAlign: 'center',
   },
   buttonDelete: {
     backgroundColor: '#ff5f5f',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     borderRadius: 20,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 4,
   },
   buttonText: {
     color: '#fff',
