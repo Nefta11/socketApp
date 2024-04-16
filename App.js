@@ -46,7 +46,7 @@ const App = () => {
           name="JsonFormScreen"
           component={JsonFormScreen}
           options={{
-            title: "JSON Guardados en la API",
+            title: "Listas guardadas en la API",
             headerStyle: {
               backgroundColor: "#53A7F4",
             },
