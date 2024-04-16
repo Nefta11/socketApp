@@ -64,9 +64,14 @@ export default function App() {
     navigation.navigate('JsonFormScreen'); // Navega a la vista JsonFormScreen
   };
 
+  // Estilo dinámico para la tarjeta del potenciómetro
+  const potenciometroStyle = {
+    backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`, // Color rojo con opacidad cambiante según el valor del potenciómetro
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
+      <View style={[styles.card, potenciometroStyle]}>
         <Text style={styles.cardTitle}>Valor del potenciómetro</Text>
         <Text style={styles.value}>{valorPotenciometro} Ω</Text>
       </View>
@@ -112,7 +117,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3E4E2',
   },
   card: {
-    backgroundColor: '#f0f0f0',
     borderRadius: 20,
     padding: 20,
     marginBottom: 20,
