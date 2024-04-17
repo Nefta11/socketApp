@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 16,  
     fontWeight: 'bold',
     color: '#FFF',
   },
