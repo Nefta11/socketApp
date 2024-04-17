@@ -174,18 +174,16 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
-// Función para obtener el color de fondo basado en la temperatura actual
+
 function getBackgroundColor(temperatura) {
-  // Ajusta estos valores según tus preferencias de color
-  const red = 255; // Valor fijo para el rojo
-  const green = 165; // Valor fijo para el verde (amarillo)
-  const blue = 0; // Valor fijo para el azul (anaranjado)
-  
-  // Limita la temperatura a un máximo de 31 grados
+  const red = 255; 
+  const green = 165; 
+  const blue = 0; 
+
+
   const temperaturaLimitada = Math.min(temperatura, 31);
   
-  // Calcula la opacidad basada en la temperatura actual
-  const opacity = temperaturaLimitada / 31; // Opacidad limitada a 1 cuando la temperatura alcanza 31 grados o más
+  const opacity = temperaturaLimitada / 31; 
 
   return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 }
