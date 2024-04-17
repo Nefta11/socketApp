@@ -174,51 +174,18 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
-const getBackgroundColor = (temp) => {
-  const tempValue = parseFloat(temp);
-  if (tempValue < 0) {
-    return 'white'; // Muy frío
-  } else if (tempValue >= 0 && tempValue < 10) {
-    return 'lightblue'; // Frío
-  } else if (tempValue >= 10 && tempValue < 15) {
-    return '#87CEFA'; // Azul Claro
-  } else if (tempValue >= 15 && tempValue < 20) {
-    return '#6495ED'; // Azul
-  } else if (tempValue >= 20 && tempValue < 20.5) {
-    return '#FFFF00'; // Amarillo Claro
-  } else if (tempValue >= 20.5 && tempValue < 21) {
-    return '#FFFF33'; // Amarillo
-  } else if (tempValue >= 21 && tempValue < 21.5) {
-    return '#FFFF66'; // Amarillo
-  } else if (tempValue >= 21.5 && tempValue < 22) {
-    return '#FFFF99'; // Amarillo
-  } else if (tempValue >= 22 && tempValue < 22.5) {
-    return '#FFFFCC'; // Amarillo
-  } else if (tempValue >= 22.5 && tempValue < 23) {
-    return '#FFEB3B'; // Amarillo
-  } else if (tempValue >= 23 && tempValue < 23.5) {
-    return '#FFE066'; // Amarillo
-  } else if (tempValue >= 23.5 && tempValue < 24) {
-    return '#FFD700'; // Naranja Claro
-  } else if (tempValue >= 24 && tempValue < 24.5) {
-    return '#FFA500'; // Naranja
-  } else if (tempValue >= 24.5 && tempValue < 25) {
-    return '#FF8C00'; // Naranja
-  } else if (tempValue >= 25 && tempValue < 25.5) {
-    return '#FF6347'; // Naranja
-  } else if (tempValue >= 25.5 && tempValue < 26) {
-    return '#FF4500'; // Naranja
-  } else if (tempValue >= 26 && tempValue < 26.5) {
-    return '#FF3333'; // Naranja
-  } else if (tempValue >= 26.5 && tempValue < 27) {
-    return '#FF0000'; // Rojo
-  } else if (tempValue >= 27 && tempValue < 27.5) {
-    return '#FF0000'; // Rojo
-  } else if (tempValue >= 27.5 && tempValue < 28) {
-    return '#FF1000'; // Rojo
-  } else if (tempValue >= 28 && tempValue < 30) {
-    return '#FF1100'; // Rojo
-  } else {
-    return '#FF1111'; // Caliente (a partir de 30)
-  }
-};
+// Función para obtener el color de fondo basado en la temperatura actual
+function getBackgroundColor(temperatura) {
+  // Ajusta estos valores según tus preferencias de color
+  const red = 255; // Valor fijo para el rojo
+  const green = 165; // Valor fijo para el verde (amarillo)
+  const blue = 0; // Valor fijo para el azul (anaranjado)
+  
+  // Limita la temperatura a un máximo de 31 grados
+  const temperaturaLimitada = Math.min(temperatura, 31);
+  
+  // Calcula la opacidad basada en la temperatura actual
+  const opacity = temperaturaLimitada / 31; // Opacidad limitada a 1 cuando la temperatura alcanza 31 grados o más
+
+  return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
+}
