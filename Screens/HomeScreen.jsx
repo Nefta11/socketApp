@@ -68,7 +68,6 @@ export default function App() {
   const potenciometroStyle = {
     backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`, // Color rojo con opacidad cambiante según el valor del potenciómetro
   };
- 
   const temperaturaStyle = {
     backgroundColor: getBackgroundColor(TemperaturaActual)
   };
