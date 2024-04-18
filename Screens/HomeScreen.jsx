@@ -95,16 +95,17 @@ export default function App() {
         <Text style={styles.value}>{DistanciaObjeto} cm</Text>
       </View>
 
-      <View style={styles.ledControl}>
-        <Text style={styles.ledText}>Encender / Apagar LED:</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={ledEncendido ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleLed}
-          value={ledEncendido}
-        />
-      </View>
+<View style={styles.ledEstatus}>
+  <Text style={styles.ledText}>Encender / Apagar LED:</Text>
+  <Switch
+    trackColor={{ false: "#767577", true: "#81b0ff" }}
+    thumbColor={ledEncendido ? "#f5dd4b" : "#f4f3f4"}
+    ios_backgroundColor="#3e3e3e"
+    onValueChange={toggleLed}
+    value={ledEncendido}
+  />
+</View>
+
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={guardarDatos}>
@@ -199,6 +200,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 10,
   },
+  ledEstatus: {
+    borderRadius: 20,
+    padding: 10,
+    marginBottom: 10,
+    width: '80%',
+    alignItems: 'center',
+    backgroundColor: 'white', 
+    },
+  
 });
 
 function getBackgroundColor(temperatura) {
