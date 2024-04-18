@@ -122,13 +122,13 @@ export default function App() {
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
-        ref={(ref) => { ws = ref; }} // Guarda la referencia WebSocket en una variable global
+        ref={(ref) => { ws = ref; }} 
       />
     </View>
   );
 }
 
-let ws; // Variable global para la referencia WebSocket
+let ws; 
 
 const styles = StyleSheet.create({
   container: {
