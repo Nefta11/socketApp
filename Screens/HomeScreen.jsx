@@ -104,7 +104,6 @@ export default function App() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -142,10 +141,10 @@ const styles = StyleSheet.create({
     color: '#d32f2f', 
   },
   objetoDetectadoCard: {
-    backgroundColor: '#ffebee', // Rojo claro
+    backgroundColor: '#ffebee', 
   },
   noObjetoDetectadoCard: {
-    backgroundColor: '#c8e6c9', // Verde claro
+    backgroundColor: '#c8e6c9', 
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -171,11 +170,7 @@ function getBackgroundColor(temperatura) {
   const red = 255; 
   const green = 165; 
   const blue = 0; 
-
-
   const temperaturaLimitada = Math.min(temperatura, 31);
-  
   const opacity = temperaturaLimitada / 31; 
-
   return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 }
