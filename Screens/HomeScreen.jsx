@@ -10,8 +10,7 @@ export default function App() {
   const [TemperaturaActual, setTemperaturaActual] = useState('0');
   const [objetoDetectado, setObjetoDetectado] = useState(false);
   const [DistanciaObjeto, setDistanciaObjeto] = useState(0);
-  const [ledEncendido, setLedEncendido] = useState(false); // Nuevo estado para controlar el LED
-  const navigation = useNavigation();
+  const [ledEncendido, setLedEncendido] = useState(false);   const navigation = useNavigation();
 
   useEffect(() => {
   }, []);
