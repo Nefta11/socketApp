@@ -96,4 +96,20 @@ void loop() {
   delay(80);
 }
 
+
+
+
+
+
+Parece que el comando expo doctor ha encontrado algunos problemas con las versiones de los paquetes en tu proyecto. Aquí están los detalles:
+
+@react-native-async-storage/async-storage@1.23.1: La versión esperada es 1.21.0.
+expo@50.0.15: La versión esperada es ~50.0.17.
+Estos paquetes deben ser actualizados para tener la mejor compatibilidad con la versión instalada de Expo. Tu proyecto puede no funcionar correctamente hasta que instales las versiones correctas de los paquetes.
+
+Para resolver estos problemas, puedes seguir el consejo proporcionado por expo doctor y ejecutar el siguiente comando en la terminal de tu proyecto:
+
+npx expo install --check
+
+Este comando revisará y actualizará tus dependencias a las versiones requeridas1.
 */
