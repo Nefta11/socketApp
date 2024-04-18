@@ -15,18 +15,30 @@ DHT dht(DHTPIN, DHTTYPE);
 const int potentiometerPin = A0;
 int trigPin = 5;
 int echoPin = 4;
+int ledPin = 13; 
 long duration;
 float cm;
 
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length) {
+  switch(type) {
+    case WStype_TEXT:
+      if (payload[0] == '1') {
+        digitalWrite(ledPin, HIGH);
+      } else if (payload[0] == '0') {
+        digitalWrite(ledPin, LOW);
+      }
+      break;
+    default:
+      break;
+  }
 }
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
 
- // WiFiMulti.addAP("INFINITUM8EB8", "Yw5Jg6Sq8e");
-   WiFiMulti.addAP("NEFTALI07 9045", "Vf378$38");
+  WiFiMulti.addAP("INFINITUM8EB8", "Yw5Jg6Sq8e");
+  //WiFiMulti.addAP("Nefta07SIuu", "123456789");
 
   while (WiFiMulti.run() != WL_CONNECTED) {
     delay(100);
@@ -43,6 +55,8 @@ void setup() {
 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  pinMode(ledPin, OUTPUT); // Initialize LED pin as output
+  digitalWrite(ledPin, LOW); // Make sure LED starts off
 }
 
 void loop() {
@@ -81,4 +95,5 @@ void loop() {
 
   delay(80);
 }
+
 */

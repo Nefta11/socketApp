@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'; // Importa Alert desde 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Switch } from 'react-native';
 import WebSocket from 'react-native-websocket';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Importa AsyncStorage desde la nueva ubicación
-import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
-import { insertList } from '../api'; // Importa la función insertList desde el archivo api.js
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { insertList } from '../api';
 
 export default function App() {
   const [valorPotenciometro, setValorPotenciometro] = useState('0');
   const [TemperaturaActual, setTemperaturaActual] = useState('0');
   const [objetoDetectado, setObjetoDetectado] = useState(false);
   const [DistanciaObjeto, setDistanciaObjeto] = useState(0);
-  const navigation = useNavigation(); // Obtiene el objeto de navegación
+  const [ledEncendido, setLedEncendido] = useState(false); // Nuevo estado para controlar el LED
+  const navigation = useNavigation();
 
   useEffect(() => {
   }, []);
@@ -20,7 +21,7 @@ export default function App() {
     setValorPotenciometro(data[0]);
     setTemperaturaActual(data[1]);
     setDistanciaObjeto(data[2]);
-    setObjetoDetectado(data[2] < 20); // Suponiendo que la detección se realiza a menos de 20 cm
+    setObjetoDetectado(data[2] < 20);
   };
 
   const onOpen = (event) => {
@@ -30,6 +31,7 @@ export default function App() {
   const generarCodigoAleatorio = () => {
     return Math.floor(1000 + Math.random() * 9000); 
   };
+
   const guardarDatos = async () => {
     try {
       const codigo = generarCodigoAleatorio(); 
@@ -42,25 +44,34 @@ export default function App() {
       };
 
       await AsyncStorage.setItem('datosGuardados', JSON.stringify(datosAGuardar));
-
       await insertList(datosAGuardar);
       
       console.log('Datos guardados y enviados a la base de datos:', datosAGuardar);
 
       Alert.alert('Guardado exitoso', 'Los datos se han guardado correctamente.');
-
     } catch (error) {
       console.error('Error al guardar los datos:', error);
       Alert.alert('Error', 'Ha ocurrido un error al intentar guardar los datos.');
     }
   };
+
   const verJSON = () => {
     navigation.navigate('JsonFormScreen'); 
+  };
+
+  const toggleLed = () => {
+    setLedEncendido(!ledEncendido);
+    // Envía el estado del LED al servidor a través del WebSocket
+    const message = ledEncendido ? '0' : '1'; // Envía '1' para encender el LED y '0' para apagarlo
+    if (ws) {
+      ws.send(message);
+    }
   };
 
   const potenciometroStyle = {
     backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`,
   };
+
   const temperaturaStyle = {
     backgroundColor: getBackgroundColor(TemperaturaActual)
   };
@@ -84,6 +95,17 @@ export default function App() {
         <Text style={styles.value}>{DistanciaObjeto} cm</Text>
       </View>
 
+      <View style={styles.ledControl}>
+        <Text style={styles.ledText}>Encender / Apagar LED:</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={ledEncendido ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleLed}
+          value={ledEncendido}
+        />
+      </View>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={guardarDatos}>
           <Text style={styles.buttonText}>Guardar</Text>
@@ -100,10 +122,14 @@ export default function App() {
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
         reconnect={true}
+        ref={(ref) => { ws = ref; }} // Guarda la referencia WebSocket en una variable global
       />
     </View>
   );
 }
+
+let ws; // Variable global para la referencia WebSocket
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -163,6 +189,15 @@ const styles = StyleSheet.create({
     fontSize: 16,  
     fontWeight: 'bold',
     color: '#FFF',
+  },
+  ledControl: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  ledText: {
+    fontSize: 18,
+    marginRight: 10,
   },
 });
 
