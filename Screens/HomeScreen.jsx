@@ -40,7 +40,8 @@ export default function App() {
         valorPotenciometro,
         TemperaturaActual,
         objetoDetectado: objetoDetectado ? 'Sí' : 'No', 
-        DistanciaObjeto
+        DistanciaObjeto,
+        EstatusLed: ledEncendido ? 'Encendido' : 'Apagado' // Agrega el estado del LED
       };
 
       await AsyncStorage.setItem('datosGuardados', JSON.stringify(datosAGuardar));

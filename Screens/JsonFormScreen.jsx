@@ -57,6 +57,7 @@ const JsonFormScreen = ({ navigation }) => {
             <Text style={styles.textItem}>Temperatura actual: {item.TemperaturaActual} °C</Text>
             <Text style={styles.textItem}>Objeto detectado: {item.objetoDetectado}</Text>
             <Text style={styles.textItem}>Distancia al objeto:  {item.DistanciaObjeto} cm</Text>
+            <Text style={styles.textItem}>Estatus del Led:  {item.EstatusLed}</Text>
           </View>
           <TouchableOpacity
             style={styles.buttonDelete}
