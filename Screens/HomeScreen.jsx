@@ -42,31 +42,25 @@ export default function App() {
         DistanciaObjeto
       };
 
-      // Guardar los datos localmente
       await AsyncStorage.setItem('datosGuardados', JSON.stringify(datosAGuardar));
 
-      // Enviar los datos a la base de datos a través de la API
       await insertList(datosAGuardar);
       
       console.log('Datos guardados y enviados a la base de datos:', datosAGuardar);
 
-      // Mostrar alerta de guardado exitoso
       Alert.alert('Guardado exitoso', 'Los datos se han guardado correctamente.');
 
     } catch (error) {
       console.error('Error al guardar los datos:', error);
-      // Mostrar alerta de error si ocurre algún problema
       Alert.alert('Error', 'Ha ocurrido un error al intentar guardar los datos.');
     }
   };
-
   const verJSON = () => {
-    navigation.navigate('JsonFormScreen'); // Navega a la vista JsonFormScreen
+    navigation.navigate('JsonFormScreen'); 
   };
 
-  // Estilo dinámico para la tarjeta del potenciómetro
   const potenciometroStyle = {
-    backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`, // Color rojo con opacidad cambiante según el valor del potenciómetro
+    backgroundColor: `rgba(255, 0, 0, ${parseFloat(valorPotenciometro) / 100})`,
   };
   const temperaturaStyle = {
     backgroundColor: getBackgroundColor(TemperaturaActual)
