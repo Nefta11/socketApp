@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '80%',
     alignItems: 'center',
-    backgroundColor: 'white', 
+    backgroundColor: '#fffd', 
     },
   
 });
