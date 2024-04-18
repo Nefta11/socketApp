@@ -28,17 +28,16 @@ export default function App() {
   };
 
   const generarCodigoAleatorio = () => {
-    return Math.floor(1000 + Math.random() * 9000); // Genera un número aleatorio de 4 dígitos
+    return Math.floor(1000 + Math.random() * 9000); 
   };
-
   const guardarDatos = async () => {
     try {
-      const codigo = generarCodigoAleatorio(); // Genera el código aleatorio
+      const codigo = generarCodigoAleatorio(); 
       const datosAGuardar = {
-        code: codigo, // Inserta el código aleatorio
+        code: codigo, 
         valorPotenciometro,
         TemperaturaActual,
-        objetoDetectado: objetoDetectado ? 'Sí' : 'No', // Representa "Sí" o "No" en lugar de true o false
+        objetoDetectado: objetoDetectado ? 'Sí' : 'No', 
         DistanciaObjeto
       };
 
