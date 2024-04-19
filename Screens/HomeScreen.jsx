@@ -118,8 +118,8 @@ export default function App() {
       </View>
 
       <WebSocket
-        //url="ws://192.168.1.77:81"
-        url="ws://192.168.51.128:81"
+        url="ws://192.168.1.77:81"
+        //url="ws://192.168.51.128:81"
         onOpen={onOpen}
         onMessage={handleData}
         onError={(error) => console.log('Error de WebSocket:', error)}
