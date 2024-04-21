@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
   
 });
 
+
 function getBackgroundColor(temperatura) {
   const red = 255; 
   const green = 165; 
