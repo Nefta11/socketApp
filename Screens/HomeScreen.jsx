@@ -131,7 +131,6 @@ export default function App() {
 }
 
 let ws; 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
