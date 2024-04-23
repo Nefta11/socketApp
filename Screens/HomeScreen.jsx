@@ -118,7 +118,7 @@ export default function App() {
       </View>
 
       <WebSocket
-        url="ws://192.168.137.71:81"
+        url="ws://192.168.1.82 :81"
         //url="ws://192.168.51.128:81"
         onOpen={onOpen}
         onMessage={handleData}
@@ -129,6 +129,8 @@ export default function App() {
     </View>
   );
 }
+
+
 
 let ws; 
 const styles = StyleSheet.create({
