@@ -118,7 +118,7 @@ export default function App() {
       </View>
 
       <WebSocket
-       // url="ws://192.168.1.82 :81"
+       url="ws://192.168.1.73:81"
         //url="ws://192.168.51.128:81"
         onOpen={onOpen}
         onMessage={handleData}
